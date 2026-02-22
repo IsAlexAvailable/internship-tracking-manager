@@ -7,9 +7,12 @@ export async function loadInternshipsFromBackend() {
     const res = await fetch(API_URL);
     // An array of JSON objects representing each internship
     const rawData = await res.json();
-
-    // Maps JSON objects to Internship objects
-    internships = rawData.map(item => new Internship(item));
+    if (Array.isArray(rawData)) {
+        // Maps JSON objects to Internship objects
+        internships = rawData.map(item => new Internship(item));
+    } else {
+        internships = [];
+    }
 }
 
 // POSTS internship to server.

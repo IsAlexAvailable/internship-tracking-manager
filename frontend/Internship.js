@@ -6,7 +6,7 @@ export class Internship {
     #location;
     #jdlink;
     #notes;
-    #id;
+    #_id;
 
     // Returns true if the fields are valid for an Internship
     static validate(data) {
@@ -24,7 +24,8 @@ export class Internship {
         this.location = data.location || "";
         this.jdlink = data.jdlink || "";
         this.notes = data.notes || "";
-        this.id = String(data.id || Date.now());
+        // prioritize database id format, 
+        this.id = String(data._id || data.id || Date.now());
     }
 
     // used by JSON.stringify to convert this object to a JSON object
@@ -43,7 +44,7 @@ export class Internship {
     
     // TODO: add validation to setters
     set id(newID) {
-        this.#id = newID;
+        this.#_id = newID;
     }
 
     set company(newCompany) {
@@ -75,7 +76,7 @@ export class Internship {
     }
 
     get id() {
-        return this.#id;
+        return this.#_id;
     }
 
     get company() {
