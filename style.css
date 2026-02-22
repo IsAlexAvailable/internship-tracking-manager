@@ -1,0 +1,575 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General Layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.container {
+    width: 100%;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* The Parent Wrapper */
+.main-dashboard {
+    display: flex;
+    flex-direction: row; /* Side by side */
+    gap: 30px;           /* Space in between the two containers */
+    width: 100%;
+    max-width: 1200px;   /* Increased width to fit two columns */
+    margin: 0 auto;
+    align-items: flex-start; /* CRITICAL: Prevents Input from stretching with Results */
+}
+
+/* Left Side (Input) */ 
+ .input-section-container {
+    flex: 0.2 0.2 350px;  /* Grow to 1, Shrink to 1, Basis of 300px */
+    position: sticky;
+    top: 20px;        /* Distance from top when sticking */
+    min-width: 250px; /* Won't get skinnier than this */
+}
+
+/* Right Side (Results) */
+.results-section-container {
+    flex: 1;      /* Grows twice as fast as the input side */
+    min-width: 600px;     /* CRITICAL: Allows flex items to shrink below their content width */
+}
+
+/* Optional: Add a scrollbar to results if they get too long */
+#internshipList {
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 20px 10px; /* Give content room to breathe */
+
+    /* The Fade Effect */
+    mask-image: linear-gradient(
+        to bottom, 
+        transparent 0%, 
+        black 5%, 
+        black 95%, 
+        transparent 100%
+    );
+    margin-bottom: 20px;
+}
+
+#internshipList::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+    margin-bottom: 10px;
+}
+
+#internshipList::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+
+
+#internshipList::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+}
+
+/* Input Styling */
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction:column;
+    gap: 7px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #555;
+    margin-left: 2px; /* Slight offset to look more natural */
+}
+
+input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit; /* Textareas often default to monospace; this fixes it */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    
+    /* Control resizing */
+    resize: vertical; /* Prevents user from stretching it horizontally and breaking layout */
+    min-height: 100px;
+    max-height: 300px;
+    
+    box-sizing: border-box;
+}
+
+/* Make it look active like your other inputs */
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+button {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#addButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#addButton:hover { background-color: #0056b3; }
+
+/* The Internship Cards */
+ul { list-style: none; padding: 0; }
+
+li {
+    background: #fff;
+    border: 1px solid #eee;
+    margin-bottom: 5px;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+#clearAllButton {
+    background-color: #f8f8f8;
+    color: rgb(72, 72, 72);
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+#clearAllButton:hover { background-color: darkgrey; }
+
+li:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+
+/* Urgent Styling */
+.urgent {
+    border-left: 5px solid #ff4d4d;
+    background-color: #fff5f5;
+}
+
+.nearing {
+    border-left: 5px solid #ffd34d;
+    background-color: #fffcf5;
+}
+
+.delete-button {
+    background: #ffeded;
+    color: #ff4d4d;
+    border: 1px solid #ffcccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.delete-button:hover { background: #ff4d4d; color: white; }
+
+.hidden {
+    display: none !important;
+}
+
+#noResults {
+    color: #666;
+    justify-self: center;
+}
+
+#totalResults {
+    color: #666;
+    justify-self: right;
+}
+
+
+/* results header Styling */
+
+.results-header {
+    display: flex;
+    align-items: center; /* Vertically centers search and sort */
+    gap: 20px;           /* Space between search bar and sort bar */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#search {
+    flex: 1;             /* This makes the search input expand to fill space */
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+#sortBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;           /* Space between "Sort by:" text and the dropdown */
+    flex-shrink: 0;      /* Prevents the sort section from getting squished */
+}
+
+#sortBy {
+    margin: 0;           /* Remove default paragraph margins */
+    white-space: nowrap; /* Keeps "Sort by:" on one line */
+    color: #666;
+    font-weight: 500;
+}
+
+#sortSelect {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Base Status Select Styling */
+.status-select {
+    padding: 4px 10px;
+    border-radius: 20px; /* Makes it look like a pill */
+    border: 1px solid transparent;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Color Palette using the data-status attribute */
+.status-select[data-status="not applied"] {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.status-select[data-status="applied"] {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.status-select[data-status="interview"] {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-select[data-status="offer"] {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-select[data-status="rejected"] {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Hover effect to make it feel interactive */
+.status-select:hover {
+    filter: brightness(0.9);
+}
+
+/* Company Group Container */
+
+.company-group {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden; /* Clips children to the border radius */
+}
+
+/* Company Header Styling */
+.group-header {
+    background-color: #f8f9fa;
+    padding: 12px 18px;
+    border-bottom: 2px solid #c8c8c8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group-header h3 {
+    
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    text-transform: capitalize;
+}
+
+.group-header .role-count {
+    font-size: 0.8rem;
+    /* background: #007bff; */
+    color: #555f68;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* Role List Styling */
+.roles-sublist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.roles-sublist li {
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid #eee;
+    border-radius: 0; /* Remove the previous individual card radius */
+    margin-bottom: 0;
+    transition: background 0.2s;
+}
+
+.roles-sublist li:last-child {
+    border-bottom: none;
+}
+
+.roles-sublist li:hover {
+    background-color: #fcfcfc;
+    transform: none; /* Turn off the previous pop-up hover if preferred */
+}
+
+/* Role Name & Deadline Distinction */
+.role-info p {
+    margin: 0; /* Remove default p tags margins */
+}
+
+.role-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.role-deadline {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+
+/* The "Pop" Animation */
+@keyframes confetti-burst {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Base styles for the pop */
+
+/* Ensure the wrapper doesn't clip the confetti */
+.confetti-pop {
+    animation: confetti-burst 0.4s ease-out;
+    position: relative;
+    /* Important: Selects are sometimes stubborn with z-index */
+    z-index: 100; 
+}
+
+/* Creating particles using pseudo-elements */
+.confetti-pop::before, .confetti-pop::after {
+    content: '🎉🎉'; /* You can use emojis or shapes */
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    opacity: 0;
+    pointer-events: none; /* Make sure particles don't block clicks */
+}
+
+.confetti-pop::before {
+    left: -20px;
+    animation: particle-left 0.6s ease-out forwards;
+}
+
+.confetti-pop::after {
+    right: -20px;
+    animation: particle-right 0.6s ease-out forwards;
+}
+
+@keyframes particle-left {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(-30px, -40px) rotate(-45deg); opacity: 0; }
+}
+
+@keyframes particle-right {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(30px, -40px) rotate(45deg); opacity: 0; }
+}
+
+/* Ensure the li stacks vertically so the edit panel appears below the info */
+li.internship-item-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows edit panel to drop to the next line */
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.edit-panel {
+    max-width: 100%;
+    box-sizing: border-box; /* Includes padding in the width calculation */
+    
+    /* 2. Visual styling to distinguish the panel */
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+
+
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. Optional: Style the scrollbar to make it look cleaner */
+.edit-inputs::-webkit-scrollbar {
+    height: 6px;
+    margin-bottom: 10px;
+}
+
+.edit-inputs::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.edit-inputs::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+}
+
+.edit-inputs {
+    /* Horizontal scroll */
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Adds scrollbar if content is too wide */
+    white-space: nowrap; /* Prevents inputs from wrapping to the next line */
+    padding-bottom: 8px; /* Space for the scrollbar so it doesn't touch the inputs */
+}
+
+.edit-inputs input {
+    flex: 0 0 auto; 
+    min-width: 150px;
+}
+
+.edit-button {
+    background: #f8f9fa;
+    color: #555f68;
+    border: 1px solid #c8c8c8;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.edit-button:hover { background: #555f68; color: white; }
+
+/* Styling the Save button inside the Edit Panel */
+.save-edit-button {
+    background-color: #28a745; /* A clean, success green */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s, transform 0.1s;
+    align-self: flex-end; /* Aligns the button to the bottom-right of the panel */
+    margin-top: 10px;
+}
+
+.save-edit-button:hover {
+    background-color: #218838; /* Slightly darker green on hover */
+}
+
+button:active {
+    transform: scale(0.95); /* Slight "push-down" effect when clicked */
+}
+
+.view-panel {
+    width: 100%;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-top: 1px dashed #ddd;
+    margin-top: 10px;
+}
+
+.view-notes label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.view-notes p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.4;
+    font-style: italic;
+    /* This tells the browser to respect the line breaks (\n) from the textarea */
+    white-space: pre-wrap; 
+    word-wrap: break-word;
+}
+
+.view-jd-link label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.view-jd-link p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.view-jd-button {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #007bff;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.view-jd-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+

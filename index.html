@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Tracker</title>
+</head>
+<body>
+    <div class="main-dashboard">
+        <aside class="input-section-container">
+            <div class="container input-section">
+                <div class="input-group">
+                    <label for="companyInput">Company</label>
+                    <input type="text" id="companyInput" placeholder="e.g. Google">
+                </div>
+                <div class="input-group">
+                    <label for="roleInput">Role</label>
+                    <input type="text" id="roleInput" placeholder="e.g. Software Developer">
+                </div>
+                
+                <div class="input-group">
+                    <label for="deadline">Application Deadline</label>
+                    <input type="date" id="deadline">
+                </div>
+                
+                <div class="input-group">
+                    <label for="statusSelect">Application Status</label>
+                    <select id="statusSelect" class="status-select" data-status="not applied">
+                        <option value="not applied">Not Applied</option>
+                        <option value="applied">Applied</option>
+                        <option value="interview">Interviewing</option>
+                        <option value="offer">Offer</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="locationInput">Location (optional)</label>
+                    <input type="text" id="locationInput" placeholder="e.g. Toronto, Ontario">
+                </div>
+                <div class="input-group">
+                    <label for="jobDescriptionInput">Job Description (optional)</label>
+                    <input type="text" id="jobDescriptionInput" placeholder="Link to job description">
+                </div>
+                <div class="input-group">
+                    <label for="notesInput">Notes (optional)</label>
+                    <textarea id="notesInput" placeholder="Enter job description details, recruiter names, or interview notes..." rows="4"></textarea>
+                </div>
+                <button id="addButton">Add Internship</button>
+                <button id="clearAllButton">Clear All Internships</button>
+            </div>
+        </aside>
+
+        <main class="results-section-container">
+            <div class="container">
+                <div class="results-section">
+                    <div id="results-header" class="results-header hidden">
+                        <input type="text" id="search" placeholder="Search internships">
+                        <div id="sortBar">
+                            <p id="sortBy">Sort by:</p>
+                            <select id="sortSelect">
+                                <option value="newest" selected="true">Newest Added</option>
+                                <option value="alphabetical">Alphabetical (A-Z)</option>
+                                <option value="deadline">Soonest Deadline</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <ul id="internshipList"></ul>
+                    <p id="noResults" class="hidden results">No Results Found</p>
+                    <p id="totalResults" class="hidden results">Total Results: 0</p>
+                </div>
+        </div>
+        </main>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
