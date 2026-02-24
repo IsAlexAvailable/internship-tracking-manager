@@ -1,6 +1,6 @@
-import { renderList } from "./renderer.js";
-import {deleteInternship, updateInternship, getInternships } from "./storage.js";
-import { MESSAGES, STATUS_OPTIONS, UI } from "./constants.js";
+import { renderList } from "./index-renderer.js";
+import {deleteInternship, updateInternship, getInternships } from "../storage.js";
+import { MESSAGES, STATUS_OPTIONS, UI } from "../constants.js";
 
 // Toggles visibility of elements depending on search-filtered results
 export function toggleVisibilities(filteredList) {
@@ -82,8 +82,8 @@ function createDeleteButton(internship) {
 
 // Calls for internship status update and may ask renderer to wait (for confetti animation)
 async function updateStatus(internship, statusOption, shouldDelay = false) {
-    if (updateInternship(internship.id, {status : statusOption})) {
-        if (shouldDelay) { setTimeout(renderList, 600); } 
+    if (await updateInternship(internship.id, {status : statusOption})) {
+        if (shouldDelay) { setTimeout(renderList, 400); } 
         else { renderList(); }
     }
 }
@@ -95,7 +95,7 @@ function playConfetti(element) {
     // Remove it after the animation ends (600ms) so it can be fired again
     setTimeout(() => {
         element.classList.remove("confetti-pop");
-    }, 600);
+    }, 400);
 }
 
 function createStatusBar(internship) {
@@ -109,15 +109,15 @@ function createStatusBar(internship) {
     statusSelect.setAttribute("name", "statusSelect");
 
     // event listener to update the entry's status
-    statusSelect.onchange = (event) => { 
+    statusSelect.onchange = async (event) => { 
         const newStatus = event.target.value;
         statusSelect.setAttribute("data-status", newStatus.toLowerCase());
         const isOffer = newStatus.toLowerCase() === STATUS_OPTIONS.OFFER;
         if (isOffer) { 
-            updateStatus(internship, newStatus, true);
+            await updateStatus(internship, newStatus, true);
             playConfetti(confettiWrapper);
          }
-        else { updateStatus(internship, newStatus); }
+        else { await updateStatus(internship, newStatus); }
     }
     
     for (const key in STATUS_OPTIONS) {

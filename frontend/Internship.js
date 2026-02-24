@@ -7,6 +7,7 @@ export class Internship {
     #jdlink;
     #notes;
     #_id;
+    #datecreated
 
     // Returns true if the fields are valid for an Internship
     static validate(data) {
@@ -25,7 +26,8 @@ export class Internship {
         this.jdlink = data.jdlink || "";
         this.notes = data.notes || "";
         // prioritize database id format, 
-        this.id = String(data._id || data.id || Date.now());
+        this.id = data._id || String(data.id) || String(Date.now());
+        this.datecreated = data.datecreated || Date.now();
     }
 
     // used by JSON.stringify to convert this object to a JSON object
@@ -38,13 +40,25 @@ export class Internship {
             status: this.status,
             location: this.location,
             jdlink: this.jdlink,
-            notes: this.notes
+            notes: this.notes,
+            datecreated : this.datecreated
         };
     }
     
     // TODO: add validation to setters
     set id(newID) {
         this.#_id = newID;
+    }
+
+    set datecreated(date) {
+        const processedDate = Number(date);
+
+        // input date is an invalid format so just stamp datecreated as now
+        if (isNaN(processedDate)) {
+            this.#datecreated = Date.now();
+        } else {
+            this.#datecreated = processedDate;
+        }
     }
 
     set company(newCompany) {
@@ -81,6 +95,10 @@ export class Internship {
 
     get company() {
         return this.#company;
+    }
+
+    get datecreated() {
+        return this.#datecreated;
     }
 
     get role() {

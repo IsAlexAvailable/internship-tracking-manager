@@ -34,7 +34,7 @@ body {
 
 /* Left Side (Input) */ 
  .input-section-container {
-    flex: 0.2 0.2 350px;  /* Grow to 1, Shrink to 1, Basis of 300px */
+    flex: 0.1 0.1 350px;  /* Grow to 1, Shrink to 1, Basis of 300px */
     position: sticky;
     top: 20px;        /* Distance from top when sticking */
     min-width: 250px; /* Won't get skinnier than this */
@@ -246,7 +246,7 @@ li:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.05); 
     font-weight: 500;
 }
 
-#sortSelect {
+.drop-down {
     padding: 6px 10px;
     border-radius: 6px;
     border: 1px solid #ddd;
@@ -573,3 +573,83 @@ button:active {
     color: white;
 }
 
+/* ANALYTICS PAGE STUFF */
+
+/* --- Analytics Specific Layout --- */
+.analytics-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Filter Bar - Matches the "Results Header" style */
+.filter-section {
+    display: flex;
+    gap: 15px;
+    padding: 1.5rem;
+    align-items: center;
+    background: white;
+}
+
+.filter-section select {
+    flex: 1; /* Dropdowns share space equally */
+    min-width: 150px;
+}
+
+/* The Main Data Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Charts get more space than numbers */
+    gap: 25px;
+    background: transparent; /* Override default container bg to show spacing */
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Graphs Section (Left Side) */
+.graphs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chart {
+    padding: 20px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Numbers Section (Right Side) */
+.numbers {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card.square {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 200px;
+}
+
+.card.square h3 {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.card.square data {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #007bff; /* Matches your Add Button */
+}

@@ -1,16 +1,24 @@
-import { getInternships } from "./storage.js";
-import { UI } from "./constants.js";
+import { getInternships } from "../storage.js";
+import { UI } from "../constants.js";
 
 // returns a sorted copy of a list based on the selected sorting criteria
 export function getSortedList(list) {
         const sortBy = UI.filters.sort.value;
+
         const sortedList = list.toSorted((a, b) => {
             if (sortBy === "newest") {
-                return (b.id - a.id);
+                return (b.datecreated - a.datecreated);
             } else if (sortBy === "alphabetical") {
                 return a.role.localeCompare(b.role) + a.company.localeCompare(b.company);
             } else if (sortBy === "deadline") {
                 return (new Date(a.deadline) - new Date(b.deadline));
+            } else if (sortBy === "oldest") {
+                console.log(`a: ${a.datecreated} b: ${b.datecreated}`)
+                return (a.datecreated - b.datecreated);
+            } else if (sortBy === "alphabetical-reverse") {
+                return (-1*(a.role.localeCompare(b.role) + a.company.localeCompare(b.company)));
+            } else if (sortBy === "deadline-reverse") {
+                return (-1*(new Date(a.deadline) - new Date(b.deadline)));
             }
         });
         return sortedList;

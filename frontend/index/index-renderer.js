@@ -1,9 +1,10 @@
-import { createListGroups, toggleVisibilities } from "./components.js";
-import {getSearchFilteredList, getSortedList, groupInternshipByCompany } from "./logic.js";
-import { UI } from "./constants.js";
+import { createListGroups, toggleVisibilities } from "./index-components.js";
+import {getSearchFilteredList, getSortedList, groupInternshipByCompany } from "./index-logic.js";
+import { UI, APP_NAMES } from "../constants.js";
 
 // Renders changes to internship list
 export function renderList() {
+    UI.title.textContent = APP_NAMES.TITLE;
     const list = UI.list.listContainer;
     list.innerHTML = "";
 

@@ -72,7 +72,7 @@ export async function deleteInternship(id) {
 // resets internship list
 export function deleteAllInternships() {
     internships = [];
-    saveToLocalStorage();
+    // saveToLocalStorage();
 }
 
 export async function updateInternship(id, newFields) {
@@ -88,9 +88,11 @@ export async function updateInternship(id, newFields) {
         // Update succeeded, now we can update local copy
         const updatedData = await res.json();
         const updatedInternship = new Internship(updatedData);
-        const index = internships.findIndex(item => item.id === id);
-        if (index !== -1) { internships[index] = updatedInternship; }
-        return true;
+        const index = internships.findIndex(internship => internship.id === updatedInternship.id);
+        if (index !== -1) { 
+            internships[index] = updatedInternship; 
+            return true;
+        }            
     } catch (error) { 
         console.error(error);
         return false;

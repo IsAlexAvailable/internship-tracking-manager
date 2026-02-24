@@ -1,7 +1,7 @@
 // --- DEPENDENCIES ---
-import { UI, MESSAGES } from "./constants.js";
-import { loadInternshipsFromBackend, deleteAllInternships, addInternship } from "./storage.js";
-import { renderList } from "./renderer.js";
+import { UI, MESSAGES } from "../constants.js";
+import { loadInternshipsFromBackend, deleteAllInternships, addInternship } from "../storage.js";
+import { renderList } from "./index-renderer.js";
 
 // Initial list render
 async function init() {

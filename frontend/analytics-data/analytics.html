@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">loading...</title>
+</head>
+<body>
+    <div class="analytics-dashboard">
+        <div class="container filter-section">
+            <!-- TODO: add labels for select bars-->
+            <select id="timeSelect" class="drop-down">
+                <option value="month" selected="true">Past 30 Days</option>
+                <option value="3-month">Past 3 Months</option>
+                <option value="year">Past Year</option>
+                <option value="all">All Time</option>
+            </select>
+            <select id="locationSelect" class="drop-down">
+                 <option value="all" selected="true">All Locations</option>
+            </select>
+            <select id="salarySelect" class="drop-down">
+                <option value="&lt;30000">less than $30,000</option>
+                <option value="30000-50000">$30,000 - $50,000</option>
+                <option value="50000-70000">$50,000 - $70,000</option>
+                <option value="&gt;70000">greater than $70,000</option>
+            </select>
+        </div>
+        <div class="container stats-grid">
+            <section class="container graphs">
+                <div class="card chart">
+                    <canvas id="bar-graph"></canvas>
+                </div>
+                <div class="card chart">
+                    <canvas id="pie-chart"></canvas>
+                </div>
+            </section>
+            <section class="container numbers">
+                <div class="card square">
+                    <h3></h3>
+                    <p><data value="0" id=""></data></p>
+                </div>
+                <div class="card square">
+                    <h3></h3>
+                    <p><data value="0" id=""></data></p>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <script type="module" src="analytics.js"></script>
+</body>
+</html>

@@ -20,7 +20,8 @@ export const UI = {
     filters : {
         search : document.getElementById('search'),
         sort : document.getElementById('sortSelect')
-    }
+    },
+    title : document.getElementById('title')
 }
 
 export const STATUS_OPTIONS = {
@@ -37,3 +38,7 @@ export const MESSAGES = {
 }
 
 export const API_URL = "http://localhost:3000/api/internships";
+
+export const APP_NAMES = {
+    TITLE : "Internship Tracker"
+}

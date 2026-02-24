@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internship Tracker</title>
+    <title id="title">loading...</title>
 </head>
 <body>
     <div class="main-dashboard">
@@ -58,10 +58,13 @@
                         <input type="text" id="search" placeholder="Search internships">
                         <div id="sortBar">
                             <p id="sortBy">Sort by:</p>
-                            <select id="sortSelect">
+                            <select id="sortSelect" class="drop-down">
                                 <option value="newest" selected="true">Newest Added</option>
+                                <option value="oldest">Oldest Added</option>
                                 <option value="alphabetical">Alphabetical (A-Z)</option>
+                                <option value="alphabetical-reverse">Alphabetical (Z-A)</option>
                                 <option value="deadline">Soonest Deadline</option>
+                                <option value="deadline-reverse">Furthest Deadline</option>
                             </select>
                         </div>
                         
@@ -73,6 +76,6 @@
         </div>
         </main>
     </div>
-    <script type="module" src="app.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>

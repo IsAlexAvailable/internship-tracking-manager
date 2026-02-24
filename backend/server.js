@@ -1,7 +1,10 @@
 // server.js
+
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import { Internship } from './models-schemas.js';
+
 const app = express();
 
 app.use(cors()); // Allow frontend to connect
@@ -11,17 +14,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/internship_tracker')
     .then(() => console.log("Connected to MongoDB!"))
     .catch(err => console.error("Could not connect:", err));
 
-const InternshipSchema = new mongoose.Schema({
-    company : String,
-    role : String,
-    deadline : String,
-    status : String,
-    location : String,
-    jdlink : String,
-    notes : String
-})
+const InternshipSchema = new mongoose.Schema(Internship.SCHEMA);
 
-const InternshipModel = mongoose.model('Internship', InternshipSchema);
+export const InternshipModel = mongoose.model(Internship.NAME, InternshipSchema);
 
 // GET: Send all internships to frontend
 app.get('/api/internships', async (req, res) => {
@@ -51,7 +46,7 @@ app.patch('/api/internships/:id', async (req, res) => {
     const id = req.params.id;
     const newFields = req.body;
     try {
-        const updatedEntry = await InternshipModel.findByIdAndUpdate(id, newFields, { new : true});
+        const updatedEntry = await InternshipModel.findByIdAndUpdate(id, newFields, { returnDocument : 'after'});
         res.status(201).json(updatedEntry);
     } catch (error) {
         res.status(500).json({ error : "Could not update database"})
